@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Редагувати запис</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <h1 class="mb-4">Редагувати запис</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="date" class="form-label">Дата:</label>
+            <input type="date" id="date" name="date" class="form-control" value="{{ mood_diary.date|date:'Y-m-d' }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="mood" class="form-label">Настрій:</label>
+            <select id="mood" name="mood" class="form-select" required>
+                <option value="happy" {% if mood_diary.mood == "happy" %}selected{% endif %}>Щасливий</option>
+                <option value="sad" {% if mood_diary.mood == "sad" %}selected{% endif %}>Сумний</option>
+                <option value="angry" {% if mood_diary.mood == "angry" %}selected{% endif %}>Злий</option>
+                <option value="neutral" {% if mood_diary.mood == "neutral" %}selected{% endif %}>Нейтральний</option>
+                <option value="Idgaf" {% if mood_diary.mood == "Idgaf" %}selected{% endif %}>На все пофіг</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="comment" class="form-label">Коментар:</label>
+            <textarea id="comment" name="comment" class="form-control" rows="3" maxlength="200">{{ mood_diary.comment }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Зберегти зміни</button>
+        <a href="/" class="btn btn-secondary ms-2">Назад</a>
+    </form>
+</div>
+</body>
+</html>
