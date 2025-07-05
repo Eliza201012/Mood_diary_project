@@ -10,7 +10,7 @@
     <h1 class="mb-4">Щоденник Настрою</h1>
 
     <!-- Manual Mood Entry Form -->
-    <form method="POST", action="create/">
+    <form method="POST" action="create/">
         {% csrf_token %}
         <div class="mb-3">
             <label for="date" class="form-label">Дата</label>
@@ -47,16 +47,45 @@
                         <strong>{{ entry.date }}</strong> — {{ entry.get_mood_display }}<br>
                         <em>{{ entry.comment }}</em>
                     </div>
-                    <div>
-                        <a href="{% url 'edit' entry.id %}" class="btn btn-sm btn-warning">Змінити</a>
+                    <div class="d-flex">
+                        <a href="{% url 'edit' entry.id %}" class="btn btn-sm btn-warning me-2">Змінити</a>
+
+                        <!-- Delete button with confirmation modal -->
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal{{ entry.id }}">
+                            Видалити
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="confirmDeleteModal{{ entry.id }}" tabindex="-1" aria-labelledby="confirmDeleteLabel{{ entry.id }}" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="confirmDeleteLabel{{ entry.id }}">Підтвердження видалення</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                              </div>
+                              <div class="modal-body">
+                                Ви дійсно хочете видалити запис за <strong>{{ entry.date }}</strong>?
+                              </div>
+                              <div class="modal-footer">
+                                <form method="post" action="{% url 'delete' entry.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Так, видалити</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                 </li>
             {% endfor %}
-
         </ul>
     {% else %}
         <p>Записів ще немає.</p>
     {% endif %}
 </div>
+
+<!-- Bootstrap JS (необхідний для модальних вікон) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
