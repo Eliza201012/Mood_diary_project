@@ -42,12 +42,17 @@
     {% if mood_diary %}
         <ul class="list-group">
             {% for entry in mood_diary %}
-                <li class="list-group-item">
-                    <strong>{{ entry.date }}</strong> —
-                    {{ entry.get_mood_display }}<br>
-                    <em>{{ entry.comment }}</em>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ entry.date }}</strong> — {{ entry.get_mood_display }}<br>
+                        <em>{{ entry.comment }}</em>
+                    </div>
+                    <div>
+                        <a href="{% url 'edit' entry.id %}" class="btn btn-sm btn-warning">Змінити</a>
+                    </div>
                 </li>
             {% endfor %}
+
         </ul>
     {% else %}
         <p>Записів ще немає.</p>
