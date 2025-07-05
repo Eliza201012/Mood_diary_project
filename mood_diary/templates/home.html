@@ -39,17 +39,18 @@
     <!-- List of Entries -->
     <hr>
     <h2 class="mb-3">Попередні записи</h2>
-    {% if entries %}
+    {% if mood_diary %}
         <ul class="list-group">
-            {% for entry in entries %}
+            {% for entry in mood_diary %}
                 <li class="list-group-item">
-                    <strong>{{ entry.date }}</strong> — {{ entry.get_mood_display }}
-                    <p>{{ entry.comment }}</p>
+                    <strong>{{ entry.date }}</strong> —
+                    {{ entry.get_mood_display }}<br>
+                    <em>{{ entry.comment }}</em>
                 </li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>Немає записів поки що.</p>
+        <p>Записів ще немає.</p>
     {% endif %}
 </div>
 </body>
