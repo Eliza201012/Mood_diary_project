@@ -3,6 +3,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
 
 def home(request):
+    mood_diary = Mood_diary.objects.all()
+    return render(request, "home.html", {"mood_diary" : mood_diary})
+
+def create(request):
     if request.method == "POST":
         mood_diary = Mood_diary()
         mood_diary.date = request.POST.get("date")
