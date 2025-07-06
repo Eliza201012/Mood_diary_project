@@ -11,3 +11,4 @@ class Mood_diary(models.Model):
     date = models.DateField()
     mood = models.CharField(max_length=20, choices=MOOD_OPTIONS, default="Undefined")
     comment = models.TextField(max_length=200)
+    image = models.ImageField(upload_to="mood_images/", blank=True, null=True)
