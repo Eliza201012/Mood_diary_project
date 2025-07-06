@@ -12,6 +12,7 @@ def create(request):
         mood_diary.date = request.POST.get("date")
         mood_diary.mood = request.POST.get("mood")
         mood_diary.comment = request.POST.get("comment")
+        mood_diary.image = request.FILES.get("image")
         mood_diary.save()
         return HttpResponseRedirect("/")
     entries = Mood_diary.objects.order_by("-date")
