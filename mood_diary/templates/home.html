@@ -10,7 +10,7 @@
     <h1 class="mb-4">Щоденник Настрою</h1>
 
     <!-- Manual Mood Entry Form -->
-    <form method="POST" action="create/">
+    <form method="POST" action="create/" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="mb-3">
             <label for="date" class="form-label">Дата</label>
@@ -31,6 +31,11 @@
         <div class="mb-3">
             <label for="comment" class="form-label">Коментар</label>
             <textarea class="form-control" name="comment" id="comment" rows="3" maxlength="200"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Фото (необов'язково)</label>
+            <input type="file" class="form-control" name="image" id="image">
         </div>
 
         <button type="submit" class="btn btn-primary">Зберегти</button>
